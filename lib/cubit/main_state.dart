@@ -1,28 +1,29 @@
 
- import 'package:testmobile/model/student.dart';
+ import 'package:testmobile/model/product.dart';
+import 'package:testmobile/model/student.dart';
 
 import '../enum/LoadStatus.dart';
 
 class MainState {
   final LoadStatus loadStatus;
-  final List<Student> student;
+  final List<Product> products;
  
-  MainState({required this.loadStatus, required this.student});
+  MainState({required this.loadStatus, required this.products});
 
-  MainState copyWith({LoadStatus? loadStatus, List<Student>? student}) {
+  MainState copyWith({LoadStatus? loadStatus, List<Product>? products}) {
     return MainState(
       loadStatus: loadStatus ?? this.loadStatus,
-      student: student ?? this.student,
+      products: products ?? this.products,
     );
   }
 
   factory MainState.Init() {
-    return MainState(loadStatus: LoadStatus.Init, student:const []);
+    return MainState(loadStatus: LoadStatus.Init, products:const []);
   }
 
   @override
   String toString() {
-    return 'MainState{loadStatus: $loadStatus, student: $student}';
+    return 'MainState{loadStatus: $loadStatus, products: $products}';
   }
 
   @override
@@ -31,13 +32,13 @@ class MainState {
   
     return other is MainState &&
       other.loadStatus == loadStatus &&
-      other.student == student;
+      other.products == products;
   }
 
   @override
   int get hashCode {
     return loadStatus.hashCode ^
-      student.hashCode;
+      products.hashCode;
   }
 
 

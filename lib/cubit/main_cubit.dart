@@ -13,8 +13,8 @@ class MainCubit extends Cubit<MainState> {
   Future<void> getData() async {
     emit(state.copyWith(loadStatus: LoadStatus.Loading));
     try {
-      final data = await api.get("api/WWAdmin/ListUser");
-      emit(state.copyWith(loadStatus: LoadStatus.Done,student: data));
+      final data = await api.get("api/v1/products");
+      emit(state.copyWith(loadStatus: LoadStatus.Done,products: data));
     } catch (e) {
       print(e);
       emit(state.copyWith(loadStatus: LoadStatus.Error));

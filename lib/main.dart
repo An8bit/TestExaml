@@ -4,6 +4,7 @@ import 'package:testmobile/api/api.dart';
 import 'package:testmobile/api/api_implement.dart';
 import 'package:testmobile/cubit/main_cubit.dart';
 import 'package:testmobile/cubit/main_state.dart';
+import 'package:testmobile/sreen/home/home.dart';
 
 import 'api/log.dart';
 import 'enum/LoadStatus.dart';
@@ -44,31 +45,7 @@ class Main extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Flutter Demo'),
-          ),
-          body: BlocBuilder<MainCubit, MainState>(
-            builder: (context, state) {
-              if(LoadStatus.Loading == state.loadStatus){
-                return const Center(child: CircularProgressIndicator());
-            } else if (LoadStatus.Done == state.loadStatus) {
-              return ListView.builder(
-                itemCount: state.student.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(state.student[index].fullName!),
-                    subtitle: Text(state.student[index].numberID!),
-                  );
-                },
-              );
-            } else {
-              return const Center(child: Text("Error"));
-            }
-            }
-          ),
-  
-          ),
+      home: Home(),
     );
   }
 }
