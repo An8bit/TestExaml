@@ -1,11 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:testmobile/api/api.dart';
+import 'package:testmobile/api/log.dart';
+import 'package:testmobile/model/student.dart';
 
 class ApiImpleMent extends Api{
-  final String baseUrl = "https://jsonplaceholder.typicode.com";
+  ApiImpleMent();
+  final String baseUrl = "https://huflit.id.vn:4321/";
    Dio dio = Dio();
-
-   
+  
   @override
   Future<String> delete(String url) {
     // TODO: implement delete
@@ -13,10 +15,32 @@ class ApiImpleMent extends Api{
   }
 
   @override
-  Future<String> get(String url) {
-    dio.get(url).then((value) => value.data);
-    return Future.value("data");
-  }
+  Future<List<Student>> get(String url) {
+  url = baseUrl + url;
+  return dio.get(url).then((value) {
+    List<Student> listStudent = [];
+    var responseData = value.data;
+    // Kiểm tra nếu responseData là một List trực tiếp
+    if (responseData is List) {
+      for (var item in responseData) {
+        listStudent.add(Student.fromJson(item));
+      }
+    }
+    // Nếu responseData không phải là List, xử lý như là Map và trích xuất danh sách
+    else if (responseData is Map<String, dynamic> && responseData.containsKey('students')) {
+      var studentsList = responseData['students'];
+      if (studentsList is List) {
+        for (var item in studentsList) {
+          listStudent.add(Student.fromJson(item));
+        }
+      }
+    } else {
+      throw Exception('Unexpected data format');
+    }
+    return listStudent;
+  });
+}
+
 
   @override
   Future<String> post(String url, Map<String, dynamic> body) {

@@ -1,34 +1,44 @@
 
- import '../enum/LoadStatus.dart';
+ import 'package:testmobile/model/student.dart';
+
+import '../enum/LoadStatus.dart';
 
 class MainState {
   final LoadStatus loadStatus;
+  final List<Student> student;
  
-  MainState({required this.loadStatus});
+  MainState({required this.loadStatus, required this.student});
 
- MainState.Init() : loadStatus = LoadStatus.Init;
-
-  MainState copyWith({
-    required LoadStatus loadStatus,
-  }) {
+  MainState copyWith({LoadStatus? loadStatus, List<Student>? student}) {
     return MainState(
       loadStatus: loadStatus ?? this.loadStatus,
+      student: student ?? this.student,
     );
   }
 
-  @override
-  bool operator ==(Object o) {
-    if (identical(this, o)) return true;
-  
-    return o is MainState &&
-      o.loadStatus == loadStatus;
+  factory MainState.Init() {
+    return MainState(loadStatus: LoadStatus.Init, student:const []);
   }
 
   @override
-  int get hashCode => loadStatus.hashCode;
+  String toString() {
+    return 'MainState{loadStatus: $loadStatus, student: $student}';
+  }
 
   @override
-  String toString() => 'MainState(loadStatus: $loadStatus)';
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+  
+    return other is MainState &&
+      other.loadStatus == loadStatus &&
+      other.student == student;
+  }
+
+  @override
+  int get hashCode {
+    return loadStatus.hashCode ^
+      student.hashCode;
+  }
 
 
 
