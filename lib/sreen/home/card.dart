@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:testmobile/sreen/detail/detail.dart';
 
 class card extends StatelessWidget {
+  
   final String imageUrl;
   final String title;
   final int id;

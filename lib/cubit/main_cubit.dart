@@ -10,10 +10,10 @@ class MainCubit extends Cubit<MainState> {
   final Api api;
   MainCubit(this.api) : super(MainState.Init());
   
-  Future<void> getData() async {
+  Future<void> getListGame() async {
     emit(state.copyWith(loadStatus: LoadStatus.Loading));
     try {
-      final data = await api.get("api/v1/products");
+      final data = await api.getListGame();
       emit(state.copyWith(loadStatus: LoadStatus.Done,products: data));
     } catch (e) {
       print(e);

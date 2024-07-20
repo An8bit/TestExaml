@@ -28,7 +28,7 @@ class Provider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => MainCubit(context.read<Api>())..getData()  ,
+      create: (context) => MainCubit(context.read<Api>())..getListGame()  ,
       child: Main(),
     );
   }
